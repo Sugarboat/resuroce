@@ -1,0 +1,66 @@
+{
+  "resource_limits": {
+    "user_space_size": "20GB",
+    "kernel_space_heap_size": "512MB",
+    "max_num_of_threads": 64
+  },
+  "process": {
+    "default_stack_size": "4MB",
+    "default_heap_size": "32MB"
+  },
+  "entry_points": [
+    "/bin/python3"
+  ],
+  "env": {
+    "default": [
+      "OMP_NUM_THREADS=4",
+      "PYTHONHOME=/opt/python-occlum",
+      "PYTHONPATH=/opt/python-occlum/lib/python3.8/site-packages:/app",
+      "LC_ALL=C.UTF-8",
+      "LANG=C.UTF-8"
+    ]
+  },
+  "mount": [
+    {
+      "target": "/",
+      "type": "unionfs",
+      "options": {
+        "layers": [
+          {
+            "target": "/",
+            "type": "sefs",
+            "source": "./build/mount",
+            "options": {
+              "integrity_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "target": "/host",
+      "type": "hostfs",
+      "source": ".",
+      "options": {
+          "ro": true
+      }
+    },
+    {
+      "target": "/tmp",
+      "type": "ramfs"
+    },
+    {
+      "target": "/model",
+      "type": "hostfs",
+      "source": "./model_data",
+      "options": {
+        "ro": true
+      }
+    }
+  ],
+  "metadata": {
+    "product_id": 1,
+    "version_id": 1,
+    "debuggable": false
+  }
+}
