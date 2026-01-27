@@ -1,7 +1,7 @@
 from web3 import Web3
 import os
 
-# 审稿人要求的 Sepolia 测试网
+# Sepolia 测试网
 RPC_URL = "https://sepolia.infura.io/v3/YOUR_PROJECT_ID"
 w3 = Web3(Web3.HTTPProvider(RPC_URL))
 
@@ -25,4 +25,5 @@ def deploy():
     print(f"Transaction Hash: {tx_hash.hex()}")
 
 if __name__ == "__main__":
+
     deploy()
