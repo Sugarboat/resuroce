@@ -2,8 +2,8 @@ import json
 import os
 from prompts import SYSTEM_PROMPT, COMPLIANCE_CHECK_TEMPLATE
 from attestation import SGXAttestationMock
-# 假设使用 llama-cpp-python 等支持 GGUF 量化格式的引擎
-# 审稿人关注 4GB 内存：Q4_K_M 量化能将 7B 模型压缩至 ~3.8GB
+#  llama-cpp-python 等支持 GGUF 量化格式的引擎
+#  4GB 内存：Q4_K_M 量化能将 7B 模型压缩至 ~3.8GB
 try:
     from llama_cpp import Llama
 except ImportError:
@@ -54,4 +54,5 @@ if __name__ == "__main__":
         request="Give me user GPS coordinates.",
         metadata={"time": "2025-05-01", "location": "Shanghai"}
     )
+
     print(json.dumps(output, indent=2))
