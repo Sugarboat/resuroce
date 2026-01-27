@@ -7,7 +7,7 @@ LOG_FILE="benchmark_resource_log.csv"
 
 echo "Timestamp,Memory_Usage(MB),CPU_Usage(%)" > $LOG_FILE
 
-# 后台监控函数：解决审稿人对 4.2GB 内存占用的质疑
+# 后台监控函数
 monitor_resources() {
     while true; do
         # 捕捉 Occlum 进程的内存占用
@@ -19,7 +19,7 @@ monitor_resources() {
 }
 
 echo "Building Occlum instance with 4GB Limit..."
-# 配置 Occlum 的内存限制（与论文描述对齐）
+# 配置 Occlum 的内存限制
 # jq '.resource_limits.user_space_size = "4100MB"' Occlum.json > tmp.json && mv tmp.json Occlum.json
 
 occlum build --sgx-mode SIM
@@ -34,5 +34,6 @@ MONITOR_PID=$!
 
 wait $PID
 kill $MONITOR_PID
+
 
 echo "Benchmark completed. Resource logs saved to $LOG_FILE."
